@@ -1,8 +1,8 @@
-#Introduction
+# Introduction
 
 Ce projet a été conçu pour collecter et traiter des données à partir de pages web en utilisant la librairie JSOUP. Le résultat est exporté dans un fichier CSV (players.csv), qui peut ensuite être utilisé pour des analyses approfondies dans le logiciel de votre choix, tel que Power BI ou Excel.
 
-#Prérequis
+# Prérequis
 
 Avant de lancer le projet, assurez-vous d'avoir :
 
@@ -48,7 +48,7 @@ Position
 Statistiques détaillées (vitesse, tir, passe, etc.)
 Le fichier CSV généré a ensuite été intégré dans Power BI pour créer un tableau de bord interactif permettant d'explorer les données par club, position, ou autres critères.
 
-#Remarques
+# Remarques
 
 Assurez-vous de respecter les règles d'éthique et de légalité du scraping (par exemple, vérifier le fichier robots.txt du site).
 Si vous rencontrez des problèmes d'encodage (caractères spéciaux), assurez-vous que le fichier CSV est traité en UTF-8.
