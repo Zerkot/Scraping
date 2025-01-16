@@ -19,7 +19,7 @@ public class App {
         List<String[]> playerDataList = new ArrayList<>();
 
         // Ajouter l'en-tête du fichier CSV
-        playerDataList.add(new String[]{"Nationalité", "Club", "Nom", "Position", "Note",  "VIT", "TIR", "PAS", "DRI", "DEF", "PHY"});
+        playerDataList.add(new String[]{"Nationalité", "Club", "Nom", "Position", "Poste","Note",  "VIT", "TIR", "PAS", "DRI", "DEF", "PHY"});
         try {
             // URL de base (à ajuster si besoin)
             String baseUrl = "https://www.ea.com/fr/games/ea-sports-fc/ratings?team=21&team=22&team=23&team=25&team=32&team=36&team=38&team=160&team=169&team=175&team=576&team=1824&team=1831&team=10029&team=100409&team=110329&team=111235&team=112172&team=1&team=2&team=5&team=7&team=9&team=10&team=11&team=13&team=14&team=17&team=18&team=19&team=94&team=110&team=95&team=144&team=1799&team=1808&team=1925&team=1943&team=240&team=241&team=448&team=243&team=449&team=450&team=452&team=453&team=457&team=461&team=462&team=463&team=472&team=479&team=480&team=481&team=483&team=1860&team=100888&team=110062&team=57&team=64&team=65&team=66&team=69&team=70&team=71&team=72&team=73&team=74&team=76&team=219&team=378&team=379&team=1530&team=1738&team=1809&team=1819&team=45&team=48&team=50&team=52&team=54&team=55&team=189&team=205&team=206&team=347&team=1745&team=1746&team=1842&team=110374&team=110556&team=111811&team=115841&team=115845&team=131681&team=131682&page=";
@@ -44,7 +44,7 @@ public class App {
          // Parcours de chaque ligne de joueur
             for (Element playerRow : playerRows) {
                 try {
-                    // Exemple d'extraction des données depuis les cellules
+                    // Extraction des données depuis les cellules
                     String playerName = playerRow.selectFirst("div.Table_profileContent__0t2_u").text(); // Colonne 1 : Nom du joueur
                     String position = playerRow.selectFirst("td.Table_cell__qBFwB").text();             // Colonne 2 : Position
                     String rating = playerRow.selectFirst("div.Table_statCellValueContent__eSIUF").text(); // Colonne 3 : Note
@@ -89,7 +89,7 @@ public class App {
                     String PHY = playerRow.selectFirst("div[data-label='PHY'] span.Table_statCellValue__zn5Cx").ownText(); // Colonne 11 : PHY
 
                  // Ajouter les données du joueur dans la liste
-                    playerDataList.add(new String[]{nationalité, club, playerName, position, rating,  VIT, TIR, PAS, DRI, DEF, PHY});
+                    playerDataList.add(new String[]{nationalité, club, playerName, poste, position, rating,  VIT, TIR, PAS, DRI, DEF, PHY});
                     
                     // Affichage des données
                     System.out.println("Nom : " + playerName);
@@ -116,7 +116,11 @@ public class App {
         
      // Écriture dans le fichier CSV
         try (BufferedWriter csvWriter = new BufferedWriter(
-                new OutputStreamWriter(new FileOutputStream("players.csv"), StandardCharsets.UTF_8))) {
+        		new OutputStreamWriter(new FileOutputStream("players.csv"), StandardCharsets.UTF_8) {
+        		    {
+        		        write('\ufeff'); // Ajout du BOM
+        		    }
+        		})) {
 
             for (String[] rowData : playerDataList) {
                 csvWriter.write(String.join(",", rowData)); // Écrit les données en UTF-8
